@@ -1,0 +1,117 @@
+import { Partner } from "../models/Partner.js";
+import {Role} from "../models/Role.js";
+
+export const getAllPartners= async (req,res) =>{
+    try{
+        const partners = await Partner.find()
+        return res.json(partners);
+    }catch(error){
+        console.log(error)
+        return res.status(500).json({error:"Error de servidor"});
+    }
+};
+
+export const getAllPartnersByRole= async (req,res) =>{
+    try{
+        const rid = req.params.rid;
+        let role = await Role.findById(rid);
+        if(!role)return res.status(400).json({error:"El id del role no coincide con ninguno registrado"});
+
+        
+        const partners = await Partner.find({role:rid});
+        return res.json(partners);
+    }catch(error){
+        console.log(error)
+        return res.status(500).json({error:"Error de servidor"});
+    }
+};
+
+export const getAllPartnerById= async (req,res) =>{
+    try{ 
+        const partner = await Partner.findById(req.params.id)
+        if (!partner)return res.status(404).json({error:"No existe un asociado con este id"}); 
+        return res.json(partner);
+    }catch(error){
+        console.log(error)
+        return res.status(500).json({error:"Error de servidor"}); 
+    }
+
+};
+
+export const getAllPartnerByEmail= async (req,res) =>{
+    try{ 
+        const partner = await Partner.find({email:req.params.email});
+        if (!partner)return res.status(404).json({error:"No existe un asociado con este email"}); 
+        return res.json(partner);
+    }catch(error){
+        console.log(error)
+        return res.status(500).json({error:"Error de servidor"}); 
+    }
+};
+
+export const addPartner= async(req,res) =>{
+    const {_id,name,last_name,email,username,password,phone,role,document_type} = req.body
+ 
+    try{
+        
+        let id_verification= await Partner.findOne({_id});
+        // console.log(id_verification);
+
+        let email_verification= await Partner.findOne({email});
+        // console.log(email_verification);
+
+        if(id_verification || email_verification) throw{code: 11000};
+        
+
+        
+
+        let rle = await Role.findById(role);
+        if(!rle)return res.status(400).json({error:"El id del role no coincide con ninguno registrado"});
+
+        const role_name=rle.name;
+
+
+        if(role_name === "beneficiario" || role_name === "vendedor" || role_name === "comprador"){
+            const EPS = false;
+            const ARL = false;
+            const partner_type_A = new Partner({_id,name,last_name,email,username,password,phone,role,document_type,ARL,EPS});
+            await partner_type_A .save();
+            return res.status(201).json({ ok:true});
+
+        }else{
+            
+            const{ARL,EPS} =req.body;
+            const partner_type_B= new Partner({_id,name,last_name,email,username,password,phone,role,document_type,ARL,EPS});
+            await partner_type_B.save();
+            return res.status(201).json({ ok:true});
+            
+        }
+
+        
+    }catch(error){
+        console.log(error);
+        console.log(error.code);
+        if(error.code === 11000){
+            return res.status(400).json({error: "Ya existe este usuario"});
+        }
+        
+        return res.status(500).json({error: "Error de servidor"});
+    }
+};
+
+export const removePartner= async (req,res) =>{
+    try{ 
+        const partner = await Partner.findById(req.params.id)
+        if (!partner)return res.status(404).json({error:"No existe una asociado con este id"}); 
+        await partner.remove();
+        return res.json(partner);
+    }catch(error){
+        console.log(error)
+        return res.status(500).json({error:"Error de servidor"}); 
+    }
+};
+
+export const updatePartner= (req,res) =>{
+    //Revisar necesidad de datos de ajuste
+    res.json({updatePartner:true});
+};
