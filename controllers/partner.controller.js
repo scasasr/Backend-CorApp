@@ -50,11 +50,11 @@ export const getAllPartnerByEmail= async (req,res) =>{
 };
 
 export const addPartner= async(req,res) =>{
-    const {_id,name,last_name,email,username,password,phone,role,document_type} = req.body
+    const {document_number,name,last_name,email,username,password,phone,role,document_type} = req.body
  
     try{
         
-        let id_verification= await Partner.findOne({_id});
+        let id_verification= await Partner.findOne({document_number});
         // console.log(id_verification);
 
         let email_verification= await Partner.findOne({email});
@@ -71,19 +71,29 @@ export const addPartner= async(req,res) =>{
         const role_name=rle.name;
 
 
-        if(role_name === "beneficiario" || role_name === "vendedor" || role_name === "comprador"){
+        if(role_name === "beneficiario" || role_name === "comprador"){
             const EPS = false;
             const ARL = false;
-            const partner_type_A = new Partner({_id,name,last_name,email,username,password,phone,role,document_type,ARL,EPS});
-            await partner_type_A .save();
+            const account_number = "Nn";
+            const partner= new Partner({document_number,name,last_name,email,username,account_number,password,phone,role,document_type,ARL,EPS});
+            await partner.save();
             return res.status(201).json({ ok:true});
+
+        }else if(role_name === "vendedor"){
+            const EPS = false;
+            const ARL = false;
+            const {account_number} = req.body
+            const partner= new Partner({document_number,name,last_name,email,username,account_number,password,phone,role,document_type,ARL,EPS});
+            await partner.save();
+            return res.status(201).json({ vendedor:true});
 
         }else{
             
             const{ARL,EPS} =req.body;
-            const partner_type_B= new Partner({_id,name,last_name,email,username,password,phone,role,document_type,ARL,EPS});
-            await partner_type_B.save();
-            return res.status(201).json({ ok:true});
+            const account_number = "Nn";
+            const partner= new Partner({document_number,name,last_name,email,username,account_number,password,phone,role,document_type,ARL,EPS});
+            await partner.save();
+            return res.status(201).json({ conductor_cargador:true});
             
         }
 

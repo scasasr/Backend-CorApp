@@ -2,7 +2,7 @@ import { Schema, model } from "mongoose";
 import bcryptjs from "bcryptjs";
 
 const partnerSchema = new Schema({
-    _id:{type:String,
+    document_number:{type:String,
         required: true,
         trim: true,
         unique: true  
@@ -27,6 +27,12 @@ const partnerSchema = new Schema({
         required: true,
         trim: true,
         unique: true  
+    },
+    account_number:{
+        type:String,
+        required:true,
+        trim:true,
+        unique:true
     },
     password:{
         type: String,

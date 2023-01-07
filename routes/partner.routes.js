@@ -19,7 +19,13 @@ router.get('/:id',getAllPartnerById);
 router.get('/email/:email',getAllPartnerByEmail);
 router.post('/add',
             [body("email", "formato de email incorrecto").trim().isEmail()],
-            [body("password", "formato de password incorrecto").trim().isLength({min: 6})],
+            [body("password", "formato de password incorrecto").trim().isStrongPassword()],
+            // Minimum password requirements
+            //     -minLengthy : 8
+            //     -minLowercase : 1
+            //     -minUppercase : 1
+            //     -minNumber: 1
+            //     -minSymbols : 1 
             validationResultExpress,
             addPartner);
 router.delete('/:id',removePartner);
