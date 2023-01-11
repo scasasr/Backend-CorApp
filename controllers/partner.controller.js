@@ -26,7 +26,7 @@ export const getAllPartnersByRole= async (req,res) =>{
     }
 };
 
-export const getAllPartnerById= async (req,res) =>{
+export const getPartnerById= async (req,res) =>{
     try{ 
         const partner = await Partner.findById(req.params.id)
         if (!partner)return res.status(404).json({error:"No existe un asociado con este id"}); 
@@ -51,7 +51,7 @@ export const getAllPartnerByEmail= async (req,res) =>{
 
 export const addPartner= async(req,res) =>{
     const {document_number,name,last_name,email,username,password,phone,role,document_type} = req.body
- 
+    // console.log(req.body)
     try{
         
         let id_verification= await Partner.findOne({document_number});

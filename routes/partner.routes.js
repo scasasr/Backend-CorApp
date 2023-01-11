@@ -1,6 +1,6 @@
 import express from "express";
 import {body} from 'express-validator';
-import { addPartner, getAllPartnerByEmail, getAllPartnerById, getAllPartners, getAllPartnersByRole, removePartner, updatePartner } from "../controllers/partner.controller.js";
+import { addPartner, getAllPartnerByEmail, getPartnerById, getAllPartners, getAllPartnersByRole, removePartner, updatePartner } from "../controllers/partner.controller.js";
 import { validationResultExpress } from "../middlewares/validationResultExpress.js";
 
 const router = express.Router();
@@ -15,9 +15,10 @@ const router = express.Router();
 
 router.get('/all',getAllPartners);
 router.get('/all/:rid',getAllPartnersByRole);
-router.get('/:id',getAllPartnerById);
+router.get('/:id',getPartnerById);
 router.get('/email/:email',getAllPartnerByEmail);
 router.post('/add',
+            [body('name', "Nombre no valido").trim().isLength({ min:4})],
             [body("email", "formato de email incorrecto").trim().isEmail()],
             [body("password", "formato de password incorrecto").trim().isStrongPassword()],
             // Minimum password requirements

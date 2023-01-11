@@ -3,6 +3,7 @@ import 'dotenv/config';
 //Conexion base de datos
 import "./database/connectdb.js";
 import express from 'express';
+import cors from 'cors';
 import countryRouter from "./routes/country.route.js";
 import cityRouter from "./routes/city.routes.js";
 import squareRouter from "./routes/square.routes.js";
@@ -17,6 +18,18 @@ import postRouter from "./routes/post.routes.js"
 const app = express();
 app.use(express.json());
 
+const whiteList = [process.env.ORIGIN1]
+app.use(cors({
+    origin: function(origin,callback){
+        if(whiteList.includes(origin)){
+            return callback(null,origin);
+        }
+        return callback(
+            "Error de CORS origin: "+origin+ " No autorizado!" 
+        );
+    }
+}));
+
 app.use("/api/v1/countries",countryRouter);
 app.use("/api/v1/cities", cityRouter);
 app.use("/api/v1/squares", squareRouter);
@@ -28,6 +41,6 @@ app.use("/api/v1/places",placesRouter);
 app.use("/api/v1/posts",postRouter);
 
 
-const PORT = process.env.PORT || 28017;
+const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log('servidor inicializado http://localhost:'+ PORT));
 
