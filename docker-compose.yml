@@ -1,0 +1,12 @@
+version: '1'
+services:
+  app:
+    image: node-backendcapp
+    container_name: node_Server
+    build:
+    restart:
+    ports:
+    - "4000:4000"
+    environment:
+      - HOST=0.0.0.0
+      - PORT=4000

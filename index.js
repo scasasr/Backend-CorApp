@@ -44,6 +44,6 @@ app.use("/api/v1/places",placesRouter);
 app.use("/api/v1/posts",postRouter);
 
 
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log('servidor inicializado http://localhost:'+ PORT));
+const PORT = process.env.PORT || 4000;
+app.listen(PORT, () => console.log('servidor inicializado http://0.0.0.0:'+ PORT));
 
