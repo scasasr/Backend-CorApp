@@ -44,8 +44,15 @@ const postSchema = new Schema({
 		// name:string,
 		// latitude:string,
 		// longitude:string,	
-	}
-
+	},
+    available:{
+        type:Boolean,
+        require:true
+    },
+    is_promo:{
+        type:Boolean,
+        require:true
+    }
 });
 
 export const Post= model('Post',postSchema);

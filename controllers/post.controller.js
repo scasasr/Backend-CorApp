@@ -77,7 +77,7 @@ export const getByPostId = async (req, res) =>{
 //Revisar el json que trae en cada get 
 
 export const addPost = async (req, res) =>{
-    const {price,date_aded,cut_date_aded,post,donation,photo,product,place} = req.body
+    const {price,date_aded,cut_date_aded,post,donation,photo,product,place,available,is_promo} = req.body
  
     try{
         
@@ -92,7 +92,7 @@ export const addPost = async (req, res) =>{
 
         //Ajustar verificacion de repeticion
 
-        post= new Post({price,date_aded,cut_date_aded,post,donation,photo,product,place});
+        post= new Post({price,date_aded,cut_date_aded,post,donation,photo,product,place,available,is_promo});
         await post.save();
 
         return res.status(201).json({ ok:true});

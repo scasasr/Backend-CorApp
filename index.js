@@ -17,18 +17,21 @@ import postRouter from "./routes/post.routes.js"
 
 const app = express();
 app.use(express.json());
+app.use(cors());//Public back
 
-const whiteList = [process.env.ORIGIN1]
-app.use(cors({
-    origin: function(origin,callback){
-        if(whiteList.includes(origin)){
-            return callback(null,origin);
-        }
-        return callback(
-            "Error de CORS origin: "+origin+ " No autorizado!" 
-        );
-    }
-}));
+//use cors
+// const whiteList = [process.env.ORIGIN1]
+// app.use(cors({
+//     origin: function(origin,callback){
+//         if(whiteList.includes(origin)){
+//             return callback(null,origin);
+//         }
+//         return callback(
+//             "Error de CORS origin: "+origin+ " No autorizado!" 
+//         );
+//     }
+// }));
+
 
 app.use("/api/v1/countries",countryRouter);
 app.use("/api/v1/cities", cityRouter);
