@@ -16,6 +16,17 @@ export const getAllByCountryId = async (req,res) => { //all cities with the same
     }
 };
 
+export const getAllCities = async (req,res) => { //all cities with the same country
+    try{
+        const cities = await City.find();
+        return res.json(cities);
+    }catch(error){
+        console.log(error)
+        return res.status(500).json({error:"Error de servidor"});
+    }
+};
+
+
 export const getByCityId = async (req,res) => {
     try{ 
         const city = await City.findById(req.params.id)

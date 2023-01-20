@@ -1,5 +1,5 @@
 import express from "express";
-import { addCity, getByCityId, getAllByCountryId, removeCity, updateCity } from "../controllers/city.controller.js";
+import { addCity, getAllCities, getByCityId, getAllByCountryId, removeCity, updateCity } from "../controllers/city.controller.js";
 import {body} from 'express-validator';
 import { validationResultExpress } from "../middlewares/validationResultExpress.js";
 
@@ -11,6 +11,7 @@ const router = express.Router();
 //DELETE        "/api/v1/countries/:id"      remove city
 //PATCH/PUT     "/api/v1/countries/:id"      update city
 
+router.get("/all",getAllCities);
 router.get("/all/:cid",getAllByCountryId);
 router.get("/:id",getByCityId);
 router.post("/add",[
