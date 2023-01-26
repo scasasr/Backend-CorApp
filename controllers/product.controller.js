@@ -1,13 +1,16 @@
 import { Product } from "../models/Product.js"; 
+import {Category} from "../models/Category.js";
 
 export const addProduct = async(req, res) =>{
-    const {name,code,price} = req.body
+    const {name,category,code,price} = req.body
     try{
-        
+        const catgry= await Category.findById(category)
+        if (!catgry)return res.status(404).json({error:"No existe una categoria con este id"});
+
         let product = await Product.findOne({name});
         if(product) throw{code: 11000};
 
-        product = new Product({name,code,price});
+        product = new Product({name,category,code,price});
         await product.save();
 
 
@@ -24,7 +27,7 @@ export const addProduct = async(req, res) =>{
     }
 };
 
-export const getProducts = async (req, res) =>{
+export const getAllProducts = async (req, res) =>{
     try{
         const products = await Product.find()
         return res.json(products);
@@ -40,6 +43,19 @@ export const getProductById =async (req,res) => {
         const product = await Product.findById(req.params.id)
         if (!product)return res.status(404).json({error:"No existe un producto con este id"}); 
         return res.json(product);
+    }catch(error){
+        console.log(error)
+        return res.status(500).json({error:"Error de servidor"}); 
+    }
+};
+
+export const getProductsByCategory =async (req,res) => {
+    
+    try{ 
+        const category = await Category.findById(req.params.cid)
+        if (!category)return res.status(404).json({error:"No existe una categoria con este id"});
+        const products = await Product.find({category:req.params.cid})
+        return res.json(products);
     }catch(error){
         console.log(error)
         return res.status(500).json({error:"Error de servidor"}); 

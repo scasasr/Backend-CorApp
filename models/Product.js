@@ -8,6 +8,11 @@ const productSchema = new Schema({
         lowercase: true},
     code:{type: String,
           trim: true},
+    category:{
+        type:Schema.Types.ObjectId,
+        ref:'Category',
+        require:true
+    },
     price:{type:Schema.Types.Decimal128,
            required: true}
 });

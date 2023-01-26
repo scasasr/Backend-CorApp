@@ -1,5 +1,5 @@
 import express from "express";
-import { addProduct,getProducts,getProductById,removeProduct,updateProduct } from "../controllers/product.controller.js";
+import { addProduct,getAllProducts,getProductsByCategory,getProductById,removeProduct,updateProduct } from "../controllers/product.controller.js";
 import {body} from 'express-validator'
 import { validationResultExpress } from "../middlewares/validationResultExpress.js";
 
@@ -7,6 +7,7 @@ import { validationResultExpress } from "../middlewares/validationResultExpress.
 const router = express.Router();
 
 //GET           "/api/v1/products/all"      all products
+//GET           "/api/v1/products/all/:cid" all products with same category
 //GET           "/api/v1/products/:id"      single product
 //POST          "/api/v1/products/add"      create product
 //DELETE        "/api/v1/products/:id"      remove product
@@ -17,7 +18,8 @@ router.post("/add",[
     validationResultExpress,
     addProduct
 );
-router.get("/all",getProducts);
+router.get("/all",getAllProducts);
+router.get("/all/:cid",getProductsByCategory);
 router.get("/:id",getProductById);
 router.delete("/:id",removeProduct);
 router.patch("/:id",[

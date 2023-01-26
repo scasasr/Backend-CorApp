@@ -8,11 +8,12 @@ import countryRouter from "./routes/country.route.js";
 import cityRouter from "./routes/city.routes.js";
 import squareRouter from "./routes/square.routes.js";
 import warehouseRouter from "./routes/warehouse.routes.js";
-import roleRouter from "./routes/role.routes.js"
-import productRouter from "./routes/product.routes.js"
-import partnerRouter from "./routes/partner.routes.js"
-import placesRouter from "./routes/place.routes.js"
-import postRouter from "./routes/post.routes.js"
+import roleRouter from "./routes/role.routes.js";
+import productRouter from "./routes/product.routes.js";
+import partnerRouter from "./routes/partner.routes.js";
+import placesRouter from "./routes/place.routes.js";
+import postRouter from "./routes/post.routes.js";
+import categryRouter from "./routes/category.routes.js";
 
 
 const app = express();
@@ -42,8 +43,9 @@ app.use("/api/v1/products", productRouter);
 app.use("/api/v1/partners", partnerRouter);
 app.use("/api/v1/places",placesRouter);
 app.use("/api/v1/posts",postRouter);
+app.use("/api/v1/categories",categryRouter)
 
 
 const PORT = process.env.PORT || 4000;
-app.listen(PORT, () => console.log('servidor inicializado http://0.0.0.0:'+ PORT));
+app.listen(PORT, () => console.log('servidor inicializado http://localhost:'+ PORT));
 

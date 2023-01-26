@@ -32,18 +32,20 @@ const postSchema = new Schema({
 	//     name:string
 	// },
 	product:{
-		type:Schema.Types.ObjectId,
-        ref:'Product',
-        require:true
-		// name:string,
-	},
+        id:{
+            type:Schema.Types.ObjectId,
+            ref:'Place',
+            require:true
+        },
+        name:{
+            type:String,
+            ref:'Place'
+        }
+    },
 	place:{
-		type:Schema.Types.ObjectId,
+        type:Schema.Types.ObjectId,
         ref:'Place',
-        require:true
-		// name:string,
-		// latitude:string,
-		// longitude:string,	
+        require:true	
 	},
     available:{
         type:Boolean,

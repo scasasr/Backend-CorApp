@@ -1,5 +1,6 @@
 import { Partner } from "../models/Partner.js";
 import {Role} from "../models/Role.js";
+import bcryptjs from "bcryptjs";
 
 export const getAllPartners= async (req,res) =>{
     try{
@@ -107,6 +108,33 @@ export const addPartner= async(req,res) =>{
         
         return res.status(500).json({error: "Error de servidor"});
     }
+};
+
+export const loginPartner = async(req,res) =>{
+    const {email,password} = req.body
+  
+    try {
+        let partner= await Partner.findOne({email});
+        if(partner){
+            let password_verification = await bcryptjs.compare(password,partner.password)
+            if(password_verification){
+                let role = await Role.findById(partner.role)
+                return res.status(201).json({partner,"role_name":role.name});
+            }else{
+                return res.status(400).json({error:"Contraseña incorrecta"});
+
+            }
+
+        }else{
+            return res.status(400).json({error:"Correo incorrecto"})
+        }
+        
+    } catch (error) {
+        console.log(error);
+        console.log(error.code);
+        return res.status(500).json({error: "Error de servidor"});   
+    }
+
 };
 
 export const removePartner= async (req,res) =>{

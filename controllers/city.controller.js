@@ -16,7 +16,7 @@ export const getAllByCountryId = async (req,res) => { //all cities with the same
     }
 };
 
-export const getAllCities = async (req,res) => { //all cities with the same country
+export const getAllCities = async (req,res) => { 
     try{
         const cities = await City.find();
         return res.json(cities);

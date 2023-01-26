@@ -1,6 +1,6 @@
 import express from "express";
 import {body} from 'express-validator';
-import { addPartner, getAllPartnerByEmail, getPartnerById, getAllPartners, getAllPartnersByRole, removePartner, updatePartner } from "../controllers/partner.controller.js";
+import { addPartner, getAllPartnerByEmail, loginPartner,getPartnerById, getAllPartners, getAllPartnersByRole, removePartner, updatePartner } from "../controllers/partner.controller.js";
 import { validationResultExpress } from "../middlewares/validationResultExpress.js";
 
 const router = express.Router();
@@ -10,6 +10,7 @@ const router = express.Router();
 //GET           "/api/v1/partners/:id"         single partner
 //GET           "/api/v1/partners/:email"      single partner
 //POST          "/api/v1/partners/add"         create partner
+//POST          "/api/v1/partners/login"       check login
 //DELETE        "/api/v1/partners/:id"         remove partner
 //PATCH/PUT     "/api/v1/partners/:id"         update partner
 
@@ -29,6 +30,10 @@ router.post('/add',
             //     -minSymbols : 1 
             validationResultExpress,
             addPartner);
+router.post('/login',
+            [body("email", "formato de email incorrecto").trim().isEmail()],
+            validationResultExpress,
+            loginPartner);
 router.delete('/:id',removePartner);
 router.patch('/:id',updatePartner);
 
