@@ -1,6 +1,17 @@
 import { Square } from "../models/Square.js";
 import { City } from "../models/City.js";
 
+
+export const getAllSquares = async (req,res) => { 
+    try{
+        const squares = await Square.find();
+        return res.json(squares);
+    }catch(error){
+        console.log(error)
+        return res.status(500).json({error:"Error de servidor"});
+    }
+};
+
 export const getAllByCityId = async (req,res) =>{
     try{
         const cid = req.params.cid;

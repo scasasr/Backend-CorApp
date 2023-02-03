@@ -22,7 +22,7 @@ const placeSchema = new Schema({
         type:Boolean,
     },
     partner:{
-        type:String,
+        type:Schema.Types.ObjectId,
         ref:'Partner',
         require:true
     },

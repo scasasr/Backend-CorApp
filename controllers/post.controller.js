@@ -14,6 +14,29 @@ export const getAllPosts = async (req, res) =>{
 
 };
 
+export const getAllPostsAvailables = async (req, res) =>{
+    try{
+        const posts = await Post.find({available:true, donation:false})
+        return res.json(posts);
+    }catch(error){
+        console.log(error)
+        return res.status(500).json({error:"Error de servidor"});
+    }
+
+};
+
+export const getAllPostsDonation = async (req, res) =>{
+    try{
+        const posts = await Post.find({available:true,donation:true})
+        return res.json(posts);
+    }catch(error){
+        console.log(error)
+        return res.status(500).json({error:"Error de servidor"});
+    }
+
+};
+
+
 export const getAllByPlaceId = async (req, res) =>{
     try{
         const pid = req.params.pid;
@@ -77,11 +100,11 @@ export const getByPostId = async (req, res) =>{
 //Revisar el json que trae en cada get 
 
 export const addPost = async (req, res) =>{
-    const {price,date_aded,cut_date_aded,post,donation,photo,product,place,available,is_promo} = req.body
+    const {price,date_aded,cut_date_aded,description,donation,photo,product,place,available,is_promo} = req.body
  
     try{
         
-        let pduct= await Partner.findById(product);
+        let pduct= await Product.findById(product);
         if(!pduct)return res.status(400).json({error:"El id del producto no coincide con ninguno registrado"});
 
         let plce= await Place.findById(place);
@@ -92,7 +115,7 @@ export const addPost = async (req, res) =>{
 
         //Ajustar verificacion de repeticion
 
-        post= new Post({price,date_aded,cut_date_aded,post,donation,photo,product,place,available,is_promo});
+        let post= new Post({price,date_aded,cut_date_aded,description,donation,photo,product,place,available,is_promo});
         await post.save();
 
         return res.status(201).json({ ok:true});

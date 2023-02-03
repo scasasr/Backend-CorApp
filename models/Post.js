@@ -15,7 +15,7 @@ const postSchema = new Schema({
         trim:true,
         require:true
     },
-	post:{
+	description:{
         type:String,
         require:true
     },
@@ -32,15 +32,9 @@ const postSchema = new Schema({
 	//     name:string
 	// },
 	product:{
-        id:{
-            type:Schema.Types.ObjectId,
-            ref:'Place',
-            require:true
-        },
-        name:{
-            type:String,
-            ref:'Place'
-        }
+        type:Schema.Types.ObjectId,
+        ref:'Product',
+        require:true  
     },
 	place:{
         type:Schema.Types.ObjectId,
@@ -51,10 +45,10 @@ const postSchema = new Schema({
         type:Boolean,
         require:true
     },
-    is_promo:{
-        type:Boolean,
-        require:true
-    }
+    // is_promo:{
+    //     type:Boolean,
+    //     require:true
+    // }
 });
 
 export const Post= model('Post',postSchema);

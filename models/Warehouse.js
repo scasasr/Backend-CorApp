@@ -3,7 +3,7 @@ import {Schema,model} from 'mongoose'
 const warehouseSchema  = new Schema({
     number:{
         type: Number,
-        required: true,
+        required:true,
         trim: true
     },
     code:{

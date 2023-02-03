@@ -1,16 +1,19 @@
 import express from "express";
 import {body} from 'express-validator';
-import { addSquare, getAllByCityId, getBySquareId, removeSquare, updateSquare } from "../controllers/square.controller.js";
+import { addSquare, getAllByCityId, getAllSquares, getBySquareId, removeSquare, updateSquare } from "../controllers/square.controller.js";
 import { validationResultExpress } from "../middlewares/validationResultExpress.js";
 
 const router = express.Router();
 
-//GET           "/api/v1/squares/:cid"     all squares by city
+//GET           "/api/v1/squares/all"      all squares 
+//GET           "/api/v1/squares/all/:cid" all squares by city
 //GET           "/api/v1/squares/:id"      single square
 //POST          "/api/v1/squares/add"      create square
 //DELETE        "/api/v1/squares/:id"      remove square
 //PATCH/PUT     "/api/v1/squares/:id"      update square
 
+
+router.get("/all",getAllSquares);
 router.get("/all/:cid",getAllByCityId);
 router.get("/:id",getBySquareId);
 router.post("/add",[

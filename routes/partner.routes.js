@@ -15,7 +15,7 @@ const router = express.Router();
 //PATCH/PUT     "/api/v1/partners/:id"         update partner
 
 router.get('/all',getAllPartners);
-router.get('/all/:rid',getAllPartnersByRole);
+router.get('/all/:name_role',getAllPartnersByRole);
 router.get('/:id',getPartnerById);
 router.get('/email/:email',getAllPartnerByEmail);
 router.post('/add',
