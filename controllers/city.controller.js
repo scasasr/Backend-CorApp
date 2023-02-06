@@ -70,7 +70,7 @@ export const removeCity = async (req,res) => {
         const city = await City.findById(req.params.id)
         if (!city )return res.status(404).json({error:"No existe una ciudad con este id"}); 
         await city.remove();
-        return res.json(city);
+        return res.status(201).json(city);
     }catch(error){
         console.log(error)
         return res.status(500).json({error:"Error de servidor"}); 
@@ -81,12 +81,14 @@ export const updateCity= async (req,res) => {
     try{ 
         //Agregar verificacion de nombre en el cambio de nombre de documento
         const city = await City.findById(req.params.id);
-        const {name} = req.body;
+        const {name,country,code} = req.body;
         if (!city)return res.status(404).json({error:"No existe una ciudad con este id"}); 
         //actualizar nombre 
         city.name = name;
+        city.country = country;
+        city.code = code;
         city.save();
-        return res.json(city);
+        return res.status(201).json(city);
     }catch(error){
         console.log(error);
         return res.status(500).json({error:"Error de servidor"}); 

@@ -51,7 +51,7 @@ export const remove = async (req, res) => {
         const ctry = await Country.findById(req.params.id)
         if (!ctry)return res.status(404).json({error:"No existe un país con este id"}); 
         await ctry.remove();
-        return res.json(ctry);
+        return res.status(201).json(ctry);
     }catch(error){
         console.log(error)
         return res.status(500).json({error:"Error de servidor"}); 
@@ -62,12 +62,13 @@ export const update = async (req, res) =>{
     try{ 
         //Agregar verificacion de nombre en el cambio de nombre de documento
         const ctry = await Country.findById(req.params.id);
-        const {name} = req.body;
+        const {name,code} = req.body;
         if (!ctry)return res.status(404).json({error:"No existe un país con este id"}); 
         //actualizar nombre 
         ctry.name = name;
+        ctry.code = code;
         ctry.save();
-        return res.json(ctry);
+        return res.status(201).json(ctry);
     }catch(error){
         console.log(error);
         return res.status(500).json({error:"Error de servidor"}); 

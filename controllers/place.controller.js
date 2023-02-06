@@ -61,7 +61,7 @@ export const getByPlaceId = async (req, res) =>{
 
 
 export const addPlace = async (req, res) =>{
-    const {name,latitude,longitude,geolocation,is_bogota,partner,products,warehouse} = req.body
+    const {name,latitude,longitude,is_bogota,partner,warehouse} = req.body
  
     try{
         
@@ -71,16 +71,16 @@ export const addPlace = async (req, res) =>{
         let whouse= await Warehouse.findById(warehouse);
         if(!whouse)return res.status(400).json({error:"El id de la bodega no coincide con ninguno registrado"});
 
-        for(const product of products){
-            let pduct = await Product.findById(product);
-            if(!pduct)return res.status(400).json({error:"El id del producto "+product+" no coincide con ninguno registrado"});
-        }
+        // for(const product of products){
+        //     let pduct = await Product.findById(product);
+        //     if(!pduct)return res.status(400).json({error:"El id del producto "+product+" no coincide con ninguno registrado"});
+        // }
 
         let place= await Place.findOne({name});
 
         if(place && place.warehouse.toString() === warehouse) throw{code: 11000};
 
-        place= new Place({name,latitude,longitude,geolocation,is_bogota,partner,products,warehouse});
+        place= new Place({name,latitude,longitude,is_bogota,partner,warehouse});
         await place.save();
 
         return res.status(201).json({ ok:true});
@@ -100,7 +100,7 @@ export const removePlace = async (req, res) =>{
         const place = await Place.findById(req.params.id)
         if (!place)return res.status(404).json({error:"No existe un puesto con este id"}); 
         await place.remove();
-        return res.json(place);
+        return res.status(201).json(place);
     }catch(error){
         console.log(error)
         return res.status(500).json({error:"Error de servidor"}); 
@@ -109,7 +109,7 @@ export const removePlace = async (req, res) =>{
 
 export const updatePlace = async (req, res) =>{
     //Revisar necesidad de datos de ajuste
-    return res.json({update:true});
+    return res.status(201).json({update:true});
 };
 
 

@@ -67,7 +67,7 @@ export const removeProduct = async (req, res) => {
         const product = await Product.findById(req.params.id)
         if (!product)return res.status(404).json({error:"No existe un producto con este id"}); 
         await product.remove();
-        return res.json(product);
+        return res.status(201).json(product);
     }catch(error){
         console.log(error)
         return res.status(500).json({error:"Error de servidor"}); 
@@ -78,12 +78,14 @@ export const updateProduct = async (req, res) =>{
     try{ 
         //Agregar verificacion de nombre en el cambio de nombre de documento
         const product = await Product.findById(req.params.id);
-        const {name} = req.body;
+        const {name,category,code} = req.body;
         if (!product)return res.status(404).json({error:"No existe un producto con este id"}); 
         //actualizar nombre 
         product.name = name;
+        product.category = category;
+        product.code = code;
         product.save();
-        return res.json(product);
+        return res.status(201).json(product);
     }catch(error){
         console.log(error);
         return res.status(500).json({error:"Error de servidor"}); 

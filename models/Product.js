@@ -12,9 +12,7 @@ const productSchema = new Schema({
         type:Schema.Types.ObjectId,
         ref:'Category',
         require:true
-    },
-    price:{type:Schema.Types.Decimal128,
-           required: true}
+    }
 });
 
 export const Product = model('product',productSchema);

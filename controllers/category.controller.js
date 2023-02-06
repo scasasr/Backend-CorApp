@@ -25,14 +25,14 @@ export const getCategoryById = async (req,res) =>{
 
 export const addCategory = async (req,res) =>{
 
-    const {name,subcategory} = req.body
+    const {name} = req.body
  
     try{
         
         let category = await Category.findOne({name});
         if(category) throw{code: 11000};
 
-        category= new Category({name,subcategory});
+        category= new Category({name});
         await category.save();
 
         return res.status(201).json({ ok:true});
@@ -53,7 +53,7 @@ export const removeCategory = async (req,res) =>{
         const category = await Category.findById(req.params.id)
         if (!category )return res.status(404).json({error:"No existe una categoria con este id"}); 
         await category .remove();
-        return res.json(category);
+        return res.status(201).json(category);
     }catch(error){
         console.log(error)
         return res.status(500).json({error:"Error de servidor"}); 
@@ -71,7 +71,7 @@ export const updateCategory = async (req,res) =>{
         //actualizar nombre 
         category.name = name;
         category.save();
-        return res.json(category);
+        return res.status(201).json(category);
     }catch(error){
         console.log(error);
         return res.status(500).json({error:"Error de servidor"}); 

@@ -72,7 +72,7 @@ export const removeWarehouse= async (req,res) => {
         const warehouse = await Warehouse.findById(req.params.id)
         if (!warehouse )return res.status(404).json({error:"No existe una bodega con este id"}); 
         await warehouse.remove();
-        return res.json(warehouse);
+        return res.status(201).json(warehouse);
     }catch(error){
         console.log(error)
         return res.status(500).json({error:"Error de servidor"}); 
@@ -83,12 +83,14 @@ export const updateWarehouse = async (req,res) => {
     try{ 
         //Agregar verificacion de numero en el cambio de nombre de documento
         const warehouse = await Warehouse.findById(req.params.id);
-        const {number} = req.body;
+        const {number,square,code} = req.body;
         if (!warehouse)return res.status(404).json({error:"No existe una bodega con este id"}); 
         //actualizar numero de bodega
         warehouse.number = number;
+        warehouse.square = square;
+        warehouse.code = code;
         warehouse.save();
-        return res.json(warehouse);
+        return res.status(201).json(warehouse);
     }catch(error){
         console.log(error);
         return res.status(500).json({error:"Error de servidor"}); 

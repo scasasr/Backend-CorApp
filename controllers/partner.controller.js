@@ -84,7 +84,7 @@ export const addPartner= async(req,res) =>{
         if(!rle)return res.status(400).json({error:"El role no coincide con ninguno registrado"});
 
 
-        if(role_name === "beneficiario" || role_name === "comprador"){
+        if(role_name === "beneficiario" || role_name === "comprador" || role_name === "admin"){
             const EPS = false;
             const ARL = false;
             const account_number = randomValue();

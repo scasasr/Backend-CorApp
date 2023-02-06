@@ -17,7 +17,7 @@ const placeSchema = new Schema({
         trim:true,
         require:true
     },
-    geolocation:Object,
+    // geolocation:Object,
     is_bogota:{
         type:Boolean,
     },
@@ -26,7 +26,7 @@ const placeSchema = new Schema({
         ref:'Partner',
         require:true
     },
-    products:[Schema.Types.ObjectId],
+    // products:[Schema.Types.ObjectId],
     warehouse:{
         type:Schema.Types.ObjectId,
         ref:'Warehouse',
