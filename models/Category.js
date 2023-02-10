@@ -9,6 +9,6 @@ const categorySchema = new Schema({
         lowercase: true
     }
 });
-
+//test commit
 
 export const Category = model('category',categorySchema)
