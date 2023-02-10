@@ -1,6 +1,6 @@
 import express from "express";
 import {body} from 'express-validator';
-import {getAllPosts,getAllPostsAvailables,getAllPostsDonation,getAllByPlaceId,getAllByProductId,getByPostId,addPost,removePost,updatePost} from "../controllers/post.controller.js";
+import {getAllPosts,getAllPostsAvailables,getAllPostsDonation,getAllByPlaceId,getAllByProductId,getByPostId,addPost,removePost,updatePost, getByPostIdExtend} from "../controllers/post.controller.js";
 import { validationResultExpress } from "../middlewares/validationResultExpress.js";
 
 const router = express.Router();
@@ -20,9 +20,11 @@ router.get("/all",getAllPosts);
 router.get("/all/availables",getAllPostsAvailables);
 router.get("/all/donations",getAllPostsDonation);
 router.get("/all/place/:pid",getAllByPlaceId);
+
 // router.get("/all/partner/:pid",getAllByPartnerId);
 router.get("/all/product/:pid",getAllByProductId);
 router.get("/:id",getByPostId);
+router.get("/extend/:id",getByPostIdExtend);
 router.post("/add",addPost);
 router.delete("/:id",removePost);
 router.patch("/:id",updatePost);

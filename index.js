@@ -14,6 +14,8 @@ import partnerRouter from "./routes/partner.routes.js";
 import placesRouter from "./routes/place.routes.js";
 import postRouter from "./routes/post.routes.js";
 import categryRouter from "./routes/category.routes.js";
+import qualityRouter from "./routes/quality.routes.js";
+import udmRouter from "./routes/udm.routes.js";
 
 
 const app = express();
@@ -43,7 +45,9 @@ app.use("/api/v1/products", productRouter);
 app.use("/api/v1/partners", partnerRouter);
 app.use("/api/v1/places",placesRouter);
 app.use("/api/v1/posts",postRouter);
-app.use("/api/v1/categories",categryRouter)
+app.use("/api/v1/categories",categryRouter);
+app.use("/api/v1/qualities",qualityRouter);
+app.use("/api/v1/udm",udmRouter);
 
 
 const PORT = process.env.PORT || 4000;

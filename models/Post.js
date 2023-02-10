@@ -26,11 +26,16 @@ const postSchema = new Schema({
 	photo:{
         type:String
     },
-	// udm:{
-	// 	type:Schema.Types.ObjectId,
-    //     ref:'Udm'
-	//     name:string
-	// },
+	udm:{
+		type:Schema.Types.ObjectId,
+        ref:'Udm',
+	    require:true
+	},
+    quality:{
+		type:Schema.Types.ObjectId,
+        ref:'Quality',
+	    require:true
+	},
 	product:{
         type:Schema.Types.ObjectId,
         ref:'Product',
