@@ -16,6 +16,9 @@ import postRouter from "./routes/post.routes.js";
 import categryRouter from "./routes/category.routes.js";
 import qualityRouter from "./routes/quality.routes.js";
 import udmRouter from "./routes/udm.routes.js";
+import orderRouter from "./routes/order.routes.js";
+import transactionRouter from './routes/transaction.routes.js';
+
 
 
 const app = express();
@@ -48,6 +51,8 @@ app.use("/api/v1/posts",postRouter);
 app.use("/api/v1/categories",categryRouter);
 app.use("/api/v1/qualities",qualityRouter);
 app.use("/api/v1/udm",udmRouter);
+app.use("/api/v1/orders",orderRouter);
+app.use("/api/v1/transactions",transactionRouter);
 
 
 const PORT = process.env.PORT || 4000;

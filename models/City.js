@@ -18,6 +18,6 @@ const citySchema  = new Schema({
         required: true,
         trim: true
     }
-});
+}); 
 
 export const City = model('city',citySchema);
