@@ -23,13 +23,14 @@ import { Transaction } from "../models/Transaction.js";
     }
  }
 
- export const addTransaction = () =>{
+ export const addTransaction = (req,res) =>{        
     console.log({Add:true})
+    return res.status(200).json({add:true})
  }
 
- export const addTuCompraData = async (req, res) =>{
+ export const addTuCompraData = (req, res) =>{
     console.log(req.body)
-    return res.status(201)
+    return res.status(200).json(req.body)
     
  }
 
