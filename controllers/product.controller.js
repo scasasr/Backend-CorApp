@@ -1,8 +1,9 @@
+import 'dotenv/config';
 import { Product } from "../models/Product.js"; 
 import {Category} from "../models/Category.js";
 
 export const addProduct = async(req, res) =>{
-    const {name,category,code,price} = req.body
+    var {name,category,photo,code,price} = req.body
     try{
         const catgry= await Category.findById(category)
         if (!catgry)return res.status(404).json({error:"No existe una categoria con este id"});
@@ -10,8 +11,14 @@ export const addProduct = async(req, res) =>{
         let product = await Product.findOne({name});
         if(product) throw{code: 11000};
 
-        product = new Product({name,category,code,price});
+        if(photo.includes("C:\\fakepath\\")) photo =photo.substring(12,);
+           
+        if(!photo.includes(process.env.URI_UPLOAD_IMAGES))photo = process.env.URI_UPLOAD_IMAGES+photo
+        
+        product = new Product({name,category,photo,code,price});
         await product.save();
+
+        
 
 
         return res.status(201).json({ ok:true});
@@ -78,12 +85,13 @@ export const updateProduct = async (req, res) =>{
     try{ 
         //Agregar verificacion de nombre en el cambio de nombre de documento
         const product = await Product.findById(req.params.id);
-        const {name,category,code} = req.body;
+        const {name,category,photo,code} = req.body;
         if (!product)return res.status(404).json({error:"No existe un producto con este id"}); 
         //actualizar nombre 
         product.name = name;
         product.category = category;
         product.code = code;
+        product.photo = photo;
         product.save();
         return res.status(201).json(product);
     }catch(error){

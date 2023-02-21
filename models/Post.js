@@ -23,9 +23,6 @@ const postSchema = new Schema({
         type:Boolean,
         require:true
     },
-	photo:{
-        type:String
-    },
 	udm:{
 		type:Schema.Types.ObjectId,
         ref:'Udm',
@@ -40,6 +37,10 @@ const postSchema = new Schema({
         type:Schema.Types.ObjectId,
         ref:'Product',
         require:true  
+    },
+    photo:{
+        type:String,
+        require:true
     },
 	place:{
         type:Schema.Types.ObjectId,

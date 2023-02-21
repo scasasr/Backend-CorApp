@@ -6,6 +6,9 @@ const productSchema = new Schema({
         trim: true,
         unique: true,
         lowercase: true},
+    photo:{
+        type:String
+    },
     code:{type: String,
           trim: true},
     category:{

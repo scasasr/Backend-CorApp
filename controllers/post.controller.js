@@ -141,7 +141,7 @@ export const getByPostIdExtend = async (req, res) =>{
 //Revisar el json que trae en cada get 
 
 export const addPost = async (req, res) =>{
-    const {price,date_aded,cut_date_aded,description,donation,photo,udm,quality,product,place,available,is_promo} = req.body
+    const {price,date_aded,cut_date_aded,description,donation,udm,quality,product,place,available,is_promo} = req.body
  
     try{
         
@@ -156,13 +156,15 @@ export const addPost = async (req, res) =>{
 
         let quality_ = await Quality.findById(quality);
         if(!quality_)return res.status(400).json({error:"El id de la calidad no coincide con ninguno registrado"});
+        
+        const photo = pduct.photo
 
         // let post= await Post.findOne({});
         // if(place && place.warehouse.toString() === warehouse) throw{code: 11000};
 
         //Ajustar verificacion de repeticion
 
-        let post= new Post({price,date_aded,cut_date_aded,description,donation,photo,udm,quality,product,place,available,is_promo});
+        let post= new Post({price,date_aded,cut_date_aded,description,donation,udm,quality,product,photo,place,available,is_promo});
         await post.save();
 
         return res.status(201).json({ ok:true});
