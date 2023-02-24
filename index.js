@@ -19,6 +19,7 @@ import udmRouter from "./routes/udm.routes.js";
 import orderRouter from "./routes/order.routes.js";
 import transactionRouter from './routes/transaction.routes.js';
 import imageRouter from './routes/images.routes.js'
+import tuCompraRouter from './routes/tuCompra.routes.js'
 
 
 import path from 'path';
@@ -71,6 +72,7 @@ app.use("/api/v1/qualities",qualityRouter);
 app.use("/api/v1/udm",udmRouter);
 app.use("/api/v1/orders",orderRouter);
 app.use("/api/v1/transactions",transactionRouter);
+app.use("/api/v1/conections/",tuCompraRouter);
 
 
 const PORT = process.env.PORT || 4000;

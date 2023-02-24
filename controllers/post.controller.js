@@ -141,7 +141,11 @@ export const getByPostIdExtend = async (req, res) =>{
 //Revisar el json que trae en cada get 
 
 export const addPost = async (req, res) =>{
-    const {price,date_aded,cut_date_aded,description,donation,udm,quality,product,place,available,is_promo} = req.body
+    const {price,description,donation,udm,quality,product,place,available,is_promo} = req.body
+
+    let now= new Date();
+    const date_added = now;
+    const cut_date_added = date_added.substring(0,9);
  
     try{
         
