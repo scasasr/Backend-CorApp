@@ -61,7 +61,7 @@ export const addOrder = async(req,res) => {
         let order= new Order({buyer,address,latitude,longitude,details,transaction,transactionState,products,total,delivery});
         await order.save();
 
-        return res.status(201).json(order);
+        return res.status(201).json(order._id);
         
     }catch(error){
         console.log(error);        

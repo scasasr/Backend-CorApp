@@ -56,21 +56,21 @@ export const getAllByPlaceId = async (req, res) =>{
 
 };
 
-// export const getAllByPartnerId = async (req, res) =>{
-//     try{
-//         const pid = req.params.pid;
-//         let partner = await Partner.findById(pid);
-//         if(!partner)return res.status(400).json({error:"El id del puesto no coincide con ninguno registrado"});
+export const getAllByPartnerId = async (req, res) =>{
+    try{
+        const pid = req.params.pid;
+        let partner = await Partner.findById(pid);
+        if(!partner)return res.status(400).json({error:"El id del asociado no coincide con ninguno registrado"});
 
         
-//         const posts = await Post.find({partner:pid});
-//         return res.json(posts);
-//     }catch(error){
-//         console.log(error)
-//         return res.status(500).json({error:"Error de servidor"});
-//     }
+        const posts = await Post.find({partner:pid});
+        return res.json(posts);
+    }catch(error){
+        console.log(error)
+        return res.status(500).json({error:"Error de servidor"});
+    }
 
-// };
+};
 
 export const getAllByProductId = async (req, res) =>{
     try{
@@ -141,7 +141,7 @@ export const getByPostIdExtend = async (req, res) =>{
 //Revisar el json que trae en cada get 
 
 export const addPost = async (req, res) =>{
-    const {price,description,donation,udm,quality,product,place,available,is_promo} = req.body
+    const {price,description,donation,udm,quality,product,place,partner,available} = req.body
 
     let now= new Date();
     const date_added = now;
@@ -168,7 +168,7 @@ export const addPost = async (req, res) =>{
 
         //Ajustar verificacion de repeticion
 
-        let post= new Post({price,date_aded,cut_date_aded,description,donation,udm,quality,product,photo,place,available,is_promo});
+        let post= new Post({price,date_added,cut_date_added,description,donation,udm,quality,product,partner,photo,place,available,is_promo});
         await post.save();
 
         return res.status(201).json({ ok:true});

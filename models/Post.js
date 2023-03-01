@@ -38,6 +38,11 @@ const postSchema = new Schema({
         ref:'Product',
         require:true  
     },
+    partner:{
+		type:Schema.Types.ObjectId,
+        ref:'Partner',
+	    require:true
+	},
     photo:{
         type:String,
         require:true
