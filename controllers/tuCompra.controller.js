@@ -8,11 +8,10 @@ import qs from "qs";
 
 export const addData= async(req,res) =>{
 
-    const {tuCompra} = req.body
- 
+  
     try{
         
-        tuCompra= new TuCompra({json});
+        const tuCompra= new TuCompra(req.body);
         await tuCompra.save();
 
         return res.status(201).json({ ok:true});

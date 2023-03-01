@@ -42,13 +42,13 @@ const orderSchema = new Schema({
         trim:true,
         require:true
     },
-    delivery:{
-        type:String,
-        require:true
-    },
+    // delivery:{
+    //     type:String,
+    //     require:true
+    // },
     // deliveryState:{
     //     type:String,
-    //     required:true
+    //     required:true    
     // },
 
 

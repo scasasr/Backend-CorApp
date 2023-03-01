@@ -43,7 +43,7 @@ export const getOrderById = async(req,res) => {
 
 
 export const addOrder = async(req,res) => {
-    const {buyer,address,latitude,longitude,details,transaction,products,total,delivery} = req.body
+    const {buyer,address,latitude,longitude,details,transaction,products,total} = req.body
  
     try{
         
@@ -58,7 +58,7 @@ export const addOrder = async(req,res) => {
             var transactionState = trans.state; 
         }
 
-        let order= new Order({buyer,address,latitude,longitude,details,transaction,transactionState,products,total,delivery});
+        let order= new Order({buyer,address,latitude,longitude,details,transaction,transactionState,products,total});
         await order.save();
 
         return res.status(201).json(order._id);
