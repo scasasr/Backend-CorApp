@@ -30,21 +30,33 @@ export const addData= async(req,res) =>{
 
 export const OpenURL= async(req,res) =>{
 
-    const {bill,total,description,userId} = req.body
+    const {bill,total,description,userId,address} = req.body
     const user = Partner.findById(userId)
+    // console.log(user)
+    console.log(req.body)
+    const document_number =user.document_number;
+    const document_type = user.document_type;
+    const name = user.name;
+    const last_name = user.last_name;
+    const email = user.email;
+    const phone = user.phone
+    console.log(document_number,document_type,name,last_name,email)
     var data = qs.stringify({
         'usuario':process.env.ID_TUCOMPRA,
         'factura': bill,
         'valor': total,
         'descripcionFactura': description,
-        'documentoComprador':user.document_number,
-        'tipoDocumento':user.document_type,
-        'nombreComprador':user.name,
-        'apellidoComprador':user.last_name,
-        'correoComprador':user.email
-
+        'documentoComprador':document_number,
+        'tipoDocumento':document_type,
+        'nombreComprador':name,
+        'apellidoComprador':last_name,
+        'correoComprador':email,
+        'paisComprador':"Colombia",
+        'direccionComprador':address,
+        'celularComprador':phone
 
       });
+      console.log(data)
       var config = {
         method: 'post',
       maxBodyLength: Infinity,

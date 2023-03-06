@@ -11,16 +11,16 @@ const orderSchema = new Schema({
         type:String,
         required:true
     },
-    latitude:{
-        type:String,
-        trim:true,
-        require:true
-    },
-    longitude:{
-        type:String,
-        trim:true,
-        require:true
-    },
+    // latitude:{
+    //     type:String,
+    //     trim:true,
+    //     require:true
+    // },
+    // longitude:{
+    //     type:String,
+    //     trim:true,
+    //     require:true
+    // },
     details:{
         type:String,
     },

@@ -43,7 +43,8 @@ export const getOrderById = async(req,res) => {
 
 
 export const addOrder = async(req,res) => {
-    const {buyer,address,latitude,longitude,details,transaction,products,total} = req.body
+    const {buyer,address,details,products,total} = req.body
+    var {transaction} = req.body;
  
     try{
         
@@ -52,13 +53,13 @@ export const addOrder = async(req,res) => {
 
         let trans = await Transaction.findById(transaction);
         if (!trans){
-            transaction = "0000000000";
+            transaction = "000000000000000000000000";
             var transactionState = "0";
         }else{
             var transactionState = trans.state; 
         }
 
-        let order= new Order({buyer,address,latitude,longitude,details,transaction,transactionState,products,total});
+        let order= new Order({buyer,address,details,transaction,transactionState,products,total});
         await order.save();
 
         return res.status(201).json(order._id);
