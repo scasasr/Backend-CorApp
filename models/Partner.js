@@ -45,6 +45,11 @@ const partnerSchema = new Schema({
           type:Schema.Types.ObjectId,
           Ref:"Role",
           require:true},
+    cluster:{
+        type:String,
+        require:true,
+        trim:true 
+    },
     document_type:{
         type: String,
         required: true,

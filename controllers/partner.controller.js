@@ -62,7 +62,7 @@ export const getAllPartnerByEmail= async (req,res) =>{
 };
 
 export const addPartner= async(req,res) =>{
-    const {document_number,name,last_name,email,username,password,phone,role_name,document_type} = req.body
+    const {document_number,name,last_name,email,username,password,phone,role_name,cluster,document_type} = req.body
     console.log(req.body)
     try{
         
@@ -88,7 +88,7 @@ export const addPartner= async(req,res) =>{
             const EPS = false;
             const ARL = false;
             const account_number = randomValue();
-            const partner= new Partner({document_number,name,last_name,email,username,account_number,password,phone,role,document_type,ARL,EPS});
+            const partner= new Partner({document_number,name,last_name,email,username,account_number,password,phone,role,cluster,document_type,ARL,EPS});
             await partner.save();
             return res.status(201).json({ ok:true});
 
@@ -96,7 +96,7 @@ export const addPartner= async(req,res) =>{
             const EPS = false;
             const ARL = false;
             const {account_number} = req.body
-            const partner= new Partner({document_number,name,last_name,email,username,account_number,password,phone,role,document_type,ARL,EPS});
+            const partner= new Partner({document_number,name,last_name,email,username,account_number,password,phone,role,cluster,document_type,ARL,EPS});
             await partner.save();
             return res.status(201).json({ vendedor:true});
 
@@ -104,7 +104,7 @@ export const addPartner= async(req,res) =>{
             
             const{ARL,EPS} =req.body;
             const account_number =randomValue();
-            const partner= new Partner({document_number,name,last_name,email,username,account_number,password,phone,role,document_type,ARL,EPS});
+            const partner= new Partner({document_number,name,last_name,email,username,account_number,password,phone,role,cluster,document_type,ARL,EPS});
             await partner.save();
             return res.status(201).json({ conductor_cargador:true});
             
