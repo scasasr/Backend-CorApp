@@ -145,7 +145,7 @@ export const addPost = async (req, res) =>{
 
     let now= new Date();
     const date_added = now;
-    const cut_date_added = date_added.substring(0,9);
+    const cut_date_added = date_added.toString().substring(0,9);
  
     try{
         
@@ -168,7 +168,7 @@ export const addPost = async (req, res) =>{
 
         //Ajustar verificacion de repeticion
 
-        let post= new Post({price,date_added,cut_date_added,description,donation,udm,quality,product,partner,photo,place,available,is_promo});
+        let post= new Post({price,date_added,cut_date_added,description,donation,udm,quality,product,partner,photo,place,available});
         await post.save();
 
         return res.status(201).json({ ok:true});
@@ -176,7 +176,7 @@ export const addPost = async (req, res) =>{
     }catch(error){
         console.log(error);
         if(error.code === 11000){
-            return res.status(400).json({error: "Ya existe este puesto"});
+            return res.status(400).json({error: "Ya existe este post"});
         }
         
         return res.status(500).json({error: "Error de servidor"});
